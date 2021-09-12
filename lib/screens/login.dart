@@ -50,7 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   await userRef.doc(phoneno).get().then((value) {
                     if (value.exists) {
                       print("Founded");
-                      SnackBar(content: Text("Found admin"));
                       logUser();
                     } else {
                       print("Not found");
