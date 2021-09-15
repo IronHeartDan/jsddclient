@@ -38,7 +38,7 @@ class _CalenderState extends State<Calender>
     with SingleTickerProviderStateMixin {
   // CalendarFormat format = CalendarFormat.month;
 
-   C_user c_user = new C_user("Name", "..........", "S_id", "U_id");
+  C_user c_user = new C_user("Name", "..........", "S_id", "U_id");
 
   late TabController _tabController;
   late ScrollController _scrollController;
@@ -61,7 +61,7 @@ class _CalenderState extends State<Calender>
         .doc(FirebaseAuth.instance.currentUser?.phoneNumber?.substring(3))
         .get()
         .then((value) {
-          print(value.exists);
+      print(value.exists);
       if (value.exists) {
         c_user = new C_user(
             value["Name"], value["Phone"], value["S_id"], value["U_id"]);
@@ -135,7 +135,7 @@ class _CalenderState extends State<Calender>
                                 height: 3.0,
                               ),
                               Text(
-                                  "${c_user != null ? c_user.Phone.substring(0, 7) : '...'}xxx",
+                                "${c_user != null ? c_user.Phone.substring(0, 7) : '...'}xxx",
                                 textAlign: TextAlign.end,
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
@@ -322,68 +322,67 @@ class _CalenderState extends State<Calender>
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(28.0),
                       topRight: Radius.circular(28.0))),
-              child: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: Center(
-                          child: Text(
-                            "Hi ${c_user != null ? c_user.Name : '...'}",
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.w400)),
-                          ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: Center(
+                        child: Text(
+                          "Hi ${c_user != null ? c_user.Name : '...'}",
+                          style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w400)),
                         ),
                       ),
-                      TabBar(
-                        // indicator: UnderlineTabIndicator(
-                        //     borderSide: BorderSide(
-                        //         width: 4.0, color: Colors.blue.shade800),
-                        //     insets: const EdgeInsets.symmetric(horizontal: 80.0)),
-                        indicatorSize: TabBarIndicatorSize.label,
-                        indicatorWeight: 4.0,
-                        indicatorColor: Colors.blue[800],
-                        controller: _tabController,
-                        tabs: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              "Calendar",
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.w400)),
-                            ),
-                          ),
-                          Text(
-                            "Payment",
+                    ),
+                    TabBar(
+                      // indicator: UnderlineTabIndicator(
+                      //     borderSide: BorderSide(
+                      //         width: 4.0, color: Colors.blue.shade800),
+                      //     insets: const EdgeInsets.symmetric(horizontal: 80.0)),
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorWeight: 4.0,
+                      indicatorColor: Colors.blue[800],
+                      controller: _tabController,
+                      tabs: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            "Calendar",
                             style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.w400)),
-                          )
-                        ],
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.7,
+                          ),
+                        ),
+                        Text(
+                          "Payment",
+                          style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w400)),
+                        )
+                      ],
+                    ),
+                    Expanded(
+                      child: Container(
                         decoration: const BoxDecoration(
                           color: Colors.white,
                         ),
                         child: TabBarView(
                             controller: _tabController,
                             children: [
-                              CalendarScreen(),
+                              CalendarScreen(c_user),
                               PaymentScreen(c_user)
                             ]),
                       ),
-                    ]),
-              ))
+                    ),
+                  ]))
         ]),
       ),
     );

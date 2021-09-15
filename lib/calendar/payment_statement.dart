@@ -1,16 +1,81 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jsddclient/data/data.dart';
+import 'package:jsddclient/calendar/calender.dart';
 
-class DeliveryStatement extends StatefulWidget {
-  const DeliveryStatement({Key? key}) : super(key: key);
+import '../classes.dart';
+
+final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+final CollectionReference societyReference =
+    firebaseFirestore.collection("societies");
+
+class PaymentStatement extends StatefulWidget {
+  final C_user c_user;
+  final Payment payment;
+
+  PaymentStatement({required this.c_user, required this.payment});
 
   @override
-  _DeliveryStatementState createState() => _DeliveryStatementState();
+  _PaymentStatementState createState() => _PaymentStatementState(payment);
 }
 
-class _DeliveryStatementState extends State<DeliveryStatement> {
+class _PaymentStatementState extends State<PaymentStatement> {
+  Payment payment;
+  List<Order> orders = [];
+  List<String> months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  final today = new DateTime.now();
+  late String month;
+
+  _PaymentStatementState(this.payment);
+
+  @override
+  void initState() {
+    month = months[int.parse(payment.number) - 1];
+    getData();
+    super.initState();
+  }
+
+  void getData() async {
+    societyReference
+        .doc(widget.c_user.S_id)
+        .collection("Users")
+        .doc(widget.c_user.U_id)
+        .collection(today.year.toString())
+        .doc(payment.number)
+        .collection("MilkData")
+        .get()
+        .then((value) {
+      print(value.docs.length);
+      value.docs.forEach((element) {
+        element["Orders"].asMap().forEach((index, order) {
+          orders.add(new Order(
+              int.parse(element.id),
+              (order["O_Time"] as Timestamp).toDate().toString(),
+              order['P_Name'],
+              order['P_Price'],
+              order['P_Quantity'],
+              order['O_Total']));
+          setState(() {});
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,14 +84,14 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
       Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF02B3E8),
-              Color(0xFF1A55B3),
+              const Color(0xFF02B3E8),
+              const Color(0xFF1A55B3),
             ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(1.0, 0.0),
             stops: [0.0, 1.0],
             tileMode: TileMode.clamp,
           ),
@@ -37,24 +102,23 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
           Container(
             height: 35.0,
             width: 35.0,
-            margin: const EdgeInsets.only(left: 20.0, top: 23.0),
+            margin: EdgeInsets.only(left: 20.0, top: 20.0),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(50.0)),
             child: IconButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                padding:
-                    const EdgeInsets.only(bottom: 2.0, right: 2.0, top: 2.0),
+                padding: EdgeInsets.only(bottom: 2.0, right: 2.0, top: 2.0),
                 alignment: Alignment.center,
                 icon: Icon(CupertinoIcons.back)),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 35.0, top: 24.0),
+            padding: const EdgeInsets.only(left: 35.0, top: 20.0),
             child: Text(
               "Delivery Statement",
               style: GoogleFonts.roboto(
-                  textStyle: const TextStyle(
+                  textStyle: TextStyle(
                       color: Colors.white,
                       fontSize: 22.0,
                       fontWeight: FontWeight.w600)),
@@ -63,8 +127,8 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
         ],
       ),
       Container(
-        margin: const EdgeInsets.only(top: 90.0),
-        decoration: const BoxDecoration(
+        margin: EdgeInsets.only(top: 90.0),
+        decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.0),
@@ -73,11 +137,11 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                padding:const EdgeInsets.only(top: 25.0),
+                padding: EdgeInsets.only(top: 25.0),
                 height: 60.0,
                 width: double.infinity,
                 child: Text(
-                  "01 JULY 2021",
+                  month,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
                       textStyle: TextStyle(
@@ -85,24 +149,24 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                           fontSize: 21.0,
                           fontWeight: FontWeight.w600)),
                 )),
-            const SizedBox(
+            SizedBox(
               height: 10.0,
             ),
-            const Divider(
+            Divider(
               height: 2.0,
               thickness: 1.0,
             ),
             Container(
               height: 30.0,
               width: MediaQuery.of(context).size.width * 0.3,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                     Color(0xFF02B3E8),
-                     Color(0xFF1A55B3),
+                    const Color(0xFF02B3E8),
+                    const Color(0xFF1A55B3),
                   ],
-                  begin:  FractionalOffset(0.0, 0.0),
-                  end:  FractionalOffset(1.0, 0.0),
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
                   stops: [0.0, 1.0],
                   tileMode: TileMode.clamp,
                 ),
@@ -113,7 +177,7 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                   "Bill Summary",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
-                      textStyle:const  TextStyle(
+                      textStyle: TextStyle(
                           color: Colors.white,
                           fontSize: 15.0,
                           fontWeight: FontWeight.w600)),
@@ -128,7 +192,7 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                   child: Text(
                     "Month's Total:",
                     style: GoogleFonts.roboto(
-                        textStyle:const TextStyle(
+                        textStyle: TextStyle(
                             color: Colors.black,
                             fontSize: 15.0,
                             fontWeight: FontWeight.w400)),
@@ -137,9 +201,9 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, right: 20.0),
                   child: Text(
-                    "Rs 20000",
+                    payment.ruppee,
                     style: GoogleFonts.roboto(
-                        textStyle: const TextStyle(
+                        textStyle: TextStyle(
                             color: Colors.black,
                             fontSize: 15.0,
                             fontWeight: FontWeight.w400)),
@@ -164,10 +228,10 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, right: 20.0),
                   child: Text(
-                    "PAID",
+                    payment.paid ? "Paid" : "Unpaid",
                     style: GoogleFonts.roboto(
                         textStyle: TextStyle(
-                            color: Colors.black,
+                            color: payment.paid ? Colors.black : Colors.red,
                             fontSize: 15.0,
                             fontWeight: FontWeight.w400)),
                   ),
@@ -178,9 +242,12 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
               padding: const EdgeInsets.only(right: 20.0, top: 5.0),
               child: Align(
                   alignment: Alignment.topRight,
-                  child: Icon(
-                    Icons.download,
-                    color: Colors.deepPurpleAccent,
+                  child: Visibility(
+                    visible: payment.paid ? true : false,
+                    child: Icon(
+                      Icons.download,
+                      color: Colors.deepPurpleAccent,
+                    ),
                   )),
             ),
             SizedBox(
@@ -217,11 +284,12 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: detail.length,
+                itemCount: orders.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
-                  Detail details = detail[index];
+                  // Detail detail = details[index];
+                  Order order = orders[index];
                   return Column(children: [
                     Card(
                       elevation: 3.0,
@@ -236,7 +304,7 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                                 padding:
                                     const EdgeInsets.only(left: 15.0, top: 5.0),
                                 child: Text(
-                                  details.date,
+                                  order.index.toString(),
                                   style: GoogleFonts.roboto(
                                       textStyle: TextStyle(
                                           color: Colors.black,
@@ -246,7 +314,7 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Text(details.months,
+                                child: Text(month,
                                     style: GoogleFonts.roboto(
                                         textStyle: TextStyle(
                                             color: Colors.black,
@@ -254,7 +322,7 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                                             fontWeight: FontWeight.w400))),
                               )
                             ]),
-                            Text(details.milk,
+                            Text(order.P_Name,
                                 style: GoogleFonts.roboto(
                                     textStyle: TextStyle(
                                         color: Colors.black,
@@ -262,7 +330,7 @@ class _DeliveryStatementState extends State<DeliveryStatement> {
                                         fontWeight: FontWeight.w500))),
                             Padding(
                               padding: const EdgeInsets.only(right: 15.0),
-                              child: Text('₹ ${details.ruppee}',
+                              child: Text('₹ ${order.O_Total}',
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.w700)),

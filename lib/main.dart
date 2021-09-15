@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:jsddclient/calendar/calendar_screen.dart';
 import 'package:jsddclient/calendar/calender.dart';
-import 'package:jsddclient/screens/login.dart';
 import 'package:jsddclient/screens/onboarding.dart';
 
 Future<void> main() async {

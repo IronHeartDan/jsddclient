@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsddclient/calendar/calender.dart';
-import 'package:jsddclient/calendar/delivery_statement.dart';
+import 'package:jsddclient/calendar/payment_statement.dart';
+
+import '../classes.dart';
 
 final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 final CollectionReference societyReference =
@@ -15,15 +17,6 @@ class PaymentScreen extends StatefulWidget {
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState(c_user);
-}
-
-class Payment {
-  String date;
-  String ruppee;
-  bool paid;
-  String number;
-
-  Payment(this.date, this.ruppee, this.paid, this.number);
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
@@ -100,8 +93,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
         Payment payment = payments[index];
         return InkWell(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const DeliveryStatement()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => PaymentStatement(
+                          c_user: c_user,
+                          payment: payment,
+                        )));
           },
           child: Card(
             margin: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
