@@ -67,7 +67,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   _scrollTo() {
-    scrollController.scrollTo(index: (_selectedMonth - 1), duration: Duration(milliseconds: 500));
+    scrollController.scrollTo(
+        index: (_selectedMonth - 1), duration: Duration(milliseconds: 500));
   }
 
   void watch() async {
@@ -151,13 +152,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         },
                         context: context);
                   },
-                  child: Center(
-                    child: Text(
-                      today!.year.toString(),
-                      style: TextStyle(
-                        fontSize: 32,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        today!.year.toString(),
+                        style: TextStyle(
+                          fontSize: 32,
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(Icons.arrow_drop_down_circle_sharp)
+                    ],
                   ),
                 ),
               ),
@@ -265,75 +273,79 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                padding: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                ),
-                child: GridView.builder(
-                  itemCount:
-                      DateUtils.getDaysInMonth(today!.year, _selectedMonth) +
-                          _offSet,
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 7,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.only(
+                    left: 10,
+                    right: 10,
                   ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return index < _offSet
-                        ? Container(
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              color: Colors.grey,
-                            ),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              today = DateTime(today!.year, _selectedMonth,
-                                  (index + 1 - _offSet));
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ViewOrder(
-                                            dateTime: today!,
-                                            c_user: widget.c_user,
-                                          )));
-                            },
-                            child: Container(
+                  child: GridView.builder(
+                    itemCount:
+                        DateUtils.getDaysInMonth(today!.year, _selectedMonth) +
+                            _offSet,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 7,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return index < _offSet
+                          ? Container(
                               decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
-                                color: calConList
-                                        .contains((index + 1 - _offSet))
-                                    ? Colors.green
-                                    : today!.year > DateTime.now().year
-                                        ? Colors.grey
-                                        : today!.year < DateTime.now().year
-                                            ? Colors.red
-                                            : today!.year == DateTime.now().year
-                                                ? _selectedMonth ==
-                                                        DateTime.now().month
-                                                    ? ((index + 1 - _offSet) >
-                                                            DateTime.now().day
-                                                        ? Colors.grey
-                                                        : Colors.red)
-                                                    : _selectedMonth >
-                                                            DateTime.now().month
-                                                        ? Colors.grey
-                                                        : Colors.red
-                                                : Colors.red,
+                                color: Colors.grey,
                               ),
-                              child: Center(
-                                  child: Text(
-                                (index + 1 - _offSet).toString(),
-                                style: TextStyle(color: Colors.white),
-                              )),
-                            ),
-                          );
-                  },
+                            )
+                          : InkWell(
+                              onTap: () {
+                                today = DateTime(today!.year, _selectedMonth,
+                                    (index + 1 - _offSet));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ViewOrder(
+                                              dateTime: today!,
+                                              c_user: widget.c_user,
+                                            )));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  color: calConList
+                                          .contains((index + 1 - _offSet))
+                                      ? Colors.green
+                                      : today!.year > DateTime.now().year
+                                          ? Colors.grey
+                                          : today!.year < DateTime.now().year
+                                              ? Colors.red
+                                              : today!.year ==
+                                                      DateTime.now().year
+                                                  ? _selectedMonth ==
+                                                          DateTime.now().month
+                                                      ? ((index + 1 - _offSet) >
+                                                              DateTime.now().day
+                                                          ? Colors.grey
+                                                          : Colors.red)
+                                                      : _selectedMonth >
+                                                              DateTime.now()
+                                                                  .month
+                                                          ? Colors.grey
+                                                          : Colors.red
+                                                  : Colors.red,
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  (index + 1 - _offSet).toString(),
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                              ),
+                            );
+                    },
+                  ),
                 ),
               ),
             ]),
