@@ -1,16 +1,52 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jsddclient/calendar/calender.dart';
+
+final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+final CollectionReference societyReference =
+    firebaseFirestore.collection("societies");
 
 class MyAccount extends StatefulWidget {
-  MyAccount({Key? key}) : super(key: key);
+  final C_user c_user;
+
+  MyAccount(this.c_user);
 
   @override
   _MyAccountState createState() => _MyAccountState();
 }
 
 class _MyAccountState extends State<MyAccount> {
+  String? Address;
+  String? Society;
+
+  @override
+  void initState() {
+    getDetails();
+    super.initState();
+  }
+
+  void getDetails() async {
+    await societyReference.doc(widget.c_user.S_id).get().then((value) {
+      setState(() {
+        Society = value["S_Name"];
+      });
+    });
+    await societyReference
+        .doc(widget.c_user.S_id)
+        .collection("Users")
+        .doc(widget.c_user.U_id)
+        .get()
+        .then((value) {
+      setState(() {
+        Address = value['Address'];
+      });
+      print(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +127,7 @@ class _MyAccountState extends State<MyAccount> {
                       height: 55.0,
                     ),
                     Text(
-                      "Hi Rahul",
+                      "Hi ${widget.c_user.Name}",
                       style: GoogleFonts.roboto(
                           textStyle: const TextStyle(
                               color: Colors.black,
@@ -103,21 +139,7 @@ class _MyAccountState extends State<MyAccount> {
                     ),
                     ListTile(
                       title: Text(
-                        "LOCATION",
-                        style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                                color: Colors.blue[600],
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w700)),
-                      ),
-                      leading: Container(
-                          height: 25.0,
-                          width: 25.0,
-                          child: Image.asset("images/location.png")),
-                    ),
-                    ListTile(
-                      title: Text(
-                        "CONTACT NO.",
+                        widget.c_user.Phone,
                         style: GoogleFonts.roboto(
                             textStyle: TextStyle(
                                 color: Colors.blue[600],
@@ -131,7 +153,7 @@ class _MyAccountState extends State<MyAccount> {
                     ),
                     ListTile(
                       title: Text(
-                        "MAIL ID",
+                        Society != null ? Society! : "Society",
                         style: GoogleFonts.roboto(
                             textStyle: TextStyle(
                                 color: Colors.blue[600],
@@ -141,7 +163,21 @@ class _MyAccountState extends State<MyAccount> {
                       leading: Container(
                           height: 25.0,
                           width: 25.0,
-                          child: Image.asset("images/mail.png")),
+                          child: Image.asset("images/location.png")),
+                    ),
+                    ListTile(
+                      title: Text(
+                        Address != null ? Address! : "LOCATION",
+                        style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                color: Colors.blue[600],
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w700)),
+                      ),
+                      leading: Container(
+                          height: 25.0,
+                          width: 25.0,
+                          child: Image.asset("images/location.png")),
                     ),
                   ],
                 ),

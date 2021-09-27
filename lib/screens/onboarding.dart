@@ -16,6 +16,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int currentState = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,72 +86,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       margin: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.5,
                           left: 0.0),
-                      child: Text("Unbreachable Privacy & Security",
+                      child: Text("100% Organic milk",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
                             fontSize: 18.0,
-                            color: Colors.white,
+                            color: Colors.blue[800],
                             fontWeight: FontWeight.w500,
                           ))),
                   Container(
                       margin: EdgeInsets.only(top: 30.0),
                       child: Text(
-                          "Rest assured your data is in safe hands locked\n behind our OTP verification vault to maximize\n your privacy and security",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
-                            fontSize: 15.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
-                          ))),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(13.0),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => LoginScreen()));
-                  },
-                  child: Text(
-                    "SKIP",
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              )
-            ]),
-            Stack(fit: StackFit.expand, children: [
-              Image.asset(
-                "images/third.png",
-                fit: BoxFit.cover,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.5,
-                          left: 20.0),
-                      child: Text("100% Organic milk",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
-                            fontSize: 20.0,
-                            color: Colors.blue[700],
-                            fontWeight: FontWeight.w500,
-                          ))),
-                  Container(
-                      margin: EdgeInsets.only(
-                        top: 30.0,
-                      ),
-                      child: Text(
                           "The absence of preservation in our 100% organic milk enriches its omega 3 fatty acid properties, which in\n return stimulates your fat loss, helps in controlling \n heart disease, and even lower your blood pressure\n to aid you keeping a healthy lifestyle",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
                             fontSize: 15.0,
-                            color: Colors.blue[700],
+                            color: Colors.blue[800],
                             fontWeight: FontWeight.w300,
                           ))),
                 ],
@@ -172,6 +122,57 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                 ),
               )
+            ]),
+            Stack(fit: StackFit.expand, children: [
+              Image.asset(
+                "images/third.png",
+                fit: BoxFit.cover,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.5,
+                          left: 20.0),
+                      child: Text("Unbreachable Privacy & Security",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.roboto(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ))),
+                  Container(
+                      margin: EdgeInsets.only(
+                        top: 30.0,
+                      ),
+                      child: Text(
+                          "Rest assured your data is in safe hands locked\n behind our OTP verification vault to maximize\n your privacy and security",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.roboto(
+                            fontSize: 15.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w300,
+                          ))),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(13.0),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => LoginScreen()));
+                  },
+                  child: Text(
+                    "SKIP",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      color: Colors.blue[800],
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ]),
             Stack(fit: StackFit.expand, children: [
               Image.asset("images/fourth.png", fit: BoxFit.cover),
@@ -209,13 +210,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ],
           done: Padding(
             padding: const EdgeInsets.only(left: 45.0),
-            child: Text(
-              "Start",
-              style: TextStyle(
-                  color: Colors.blue[900],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0),
-            ),
+            child: Image.asset("images/forward.png"),
           ),
           skip: Text(
             "Skip",
@@ -241,13 +236,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               color: currentState == 3
                   ? Colors.blueAccent
                   : currentState == 2
-                      ? Colors.blueAccent
-                      : Colors.white,
+                      ? Colors.white
+                      : currentState == 0
+                          ? Colors.white
+                          : Colors.blueAccent,
               activeColor: currentState == 3
                   ? Colors.blueAccent
                   : currentState == 2
-                      ? Colors.blueAccent
-                      : Colors.white,
+                      ? Colors.white
+                      : currentState == 0
+                          ? Colors.white
+                          : Colors.blueAccent,
               size: Size(10, 10),
               activeSize: Size(22, 10),
               activeShape: RoundedRectangleBorder(

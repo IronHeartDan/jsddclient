@@ -155,14 +155,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        width: 20,
+                      ),
                       Text(
                         today!.year.toString(),
                         style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 25,
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 5,
                       ),
                       Icon(Icons.arrow_drop_down_circle_sharp)
                     ],
@@ -170,7 +173,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
+                margin: EdgeInsets.only(top: 20, bottom: 10),
                 height: 40,
                 child: ScrollablePositionedList.builder(
                     itemScrollController: scrollController,
@@ -190,12 +193,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           });
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: _selectedMonth == index + 1
-                                ? Colors.deepPurple
-                                : Colors.blueGrey,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
+                          width: 100,
+                          decoration: _selectedMonth != index + 1
+                              ? BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  border: _selectedMonth == index + 1
+                                      ? null
+                                      : Border.all(
+                                          color: Color.fromRGBO(2, 179, 232, 1),
+                                          width: 1.0),
+                                )
+                              : BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFF02B3E8),
+                                      Color(0xFF1A55B3),
+                                    ],
+                                    begin: FractionalOffset(0.0, 0.0),
+                                    end: FractionalOffset(1.0, 0.0),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
                           margin: EdgeInsets.only(
                             left: 5,
                             right: 5,
@@ -205,21 +227,27 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           child: Center(
                               child: Text(
                             months[index],
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: _selectedMonth == index + 1
+                                    ? Colors.white
+                                    : Colors.black),
                           )),
                         ),
                       );
                     }),
               ),
               Container(
-                margin: EdgeInsets.all(10),
+                margin:
+                    EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 10),
                 padding: EdgeInsets.only(
-                  left: 10,
-                  right: 10,
+                  left: 5,
+                  right: 5,
                 ),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    color: Colors.blueGrey),
+                  border: Border.all(
+                      color: Color.fromRGBO(2, 179, 232, 1), width: 1.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
                 child: GridView(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -231,43 +259,43 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     Center(
                       child: Text(
                         days[0],
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     Center(
                       child: Text(
                         days[1],
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     Center(
                       child: Text(
                         days[2],
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     Center(
                       child: Text(
                         days[3],
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     Center(
                       child: Text(
                         days[4],
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     Center(
                       child: Text(
                         days[5],
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     Center(
                       child: Text(
                         days[6],
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ],
@@ -277,8 +305,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 child: Container(
                   margin: EdgeInsets.only(top: 10),
                   padding: EdgeInsets.only(
-                    left: 10,
-                    right: 10,
+                    left: 15,
+                    right: 15,
                   ),
                   child: GridView.builder(
                     itemCount:
@@ -307,8 +335,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ViewOrder(
-                                              dateTime: today!,
                                               c_user: widget.c_user,
+                                              dateTime: today!,
                                             )));
                               },
                               child: Container(

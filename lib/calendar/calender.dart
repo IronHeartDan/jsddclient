@@ -10,12 +10,12 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jsddclient/calendar/about_us.dart';
-import 'package:jsddclient/calendar/faq.dart';
 import 'package:jsddclient/calendar/my_account.dart';
 import 'package:jsddclient/calendar/payment_screen.dart';
-import 'package:jsddclient/calendar/t_c.dart';
+import 'package:jsddclient/screens/about_us.dart';
+import 'package:jsddclient/screens/faq.dart';
 import 'package:jsddclient/screens/login.dart';
+import 'package:jsddclient/screens/t_c.dart';
 
 import 'calendar_screen.dart';
 
@@ -157,8 +157,8 @@ class _CalenderState extends State<Calender>
                 ]),
               ),
               ListTile(
-                onTap: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => MyAccount())),
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => MyAccount(c_user))),
                 title: Text(
                   "My Account",
                   style: GoogleFonts.roboto(
@@ -181,8 +181,10 @@ class _CalenderState extends State<Calender>
                 ),
               ),
               ListTile(
-                onTap: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => FAQ())),
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => FAQ()));
+                },
                 title: Text(
                   "FAQ's",
                   style: GoogleFonts.roboto(

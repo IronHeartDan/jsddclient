@@ -45,6 +45,8 @@ dependencies:
   flutter_native_splash: ^1.2.1
   scrollable_positioned_list: ^0.1.10
   toast: ^0.1.5
+  shared_preferences: ^2.0.7
+  url_launcher: ^6.0.10
 flutter_native_splash: 
     color: "#ffffff"
     image: images/splashscreen.png
