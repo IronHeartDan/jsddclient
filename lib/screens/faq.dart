@@ -17,28 +17,51 @@ class _FAQState extends State<FAQ> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("FAQ'S"),
-        ),
+            flexibleSpace: Container(
+                decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF02B3E8),
+                  Color(0xFF1A55B3),
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+              ),
+            )),
+            title: Text("FAQ'S"),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(
+                  "images/back.png",
+                ),
+              ),
+            )),
         body: SingleChildScrollView(
           child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                title: Text(
+            ListTile(
+              title: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
                   'Advantages of our applications',
                   style: GoogleFonts.roboto(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: Colors.grey[900]),
                 ),
-                subtitle: Text(
-                  '1. Ensures quick delivery of milk to the users.\n2. Easy to operate UI.\n3. Assists the user to keep track of their monthly expenses.\n4.Provides fluent and impregnable online transactions.\n5. Admins can access real-time location feed of users society and monitor their delivery status.',
-                  textAlign: TextAlign.justify,
-                  style: GoogleFonts.roboto(
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87),
-                ),
+              ),
+              subtitle: Text(
+                '1. Ensures quick delivery of milk to the users.\n2. Easy to operate UI.\n3. Assists the user to keep track of their monthly expenses.\n4.Provides fluent and impregnable online transactions.\n5. Admins can access real-time location feed of users society and monitor their delivery status.',
+                textAlign: TextAlign.justify,
+                style: GoogleFonts.roboto(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[800]),
               ),
             ),
             FQ(
@@ -81,13 +104,17 @@ class FQ extends StatelessWidget {
         title,
         textAlign: TextAlign.justify,
         style: GoogleFonts.roboto(
-            fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
+            fontSize: 18.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.grey[900]),
       ),
       subtitle: Text(
         subtitle,
         textAlign: TextAlign.justify,
         style: GoogleFonts.roboto(
-            fontSize: 17.0, fontWeight: FontWeight.w600, color: Colors.black87),
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400,
+            color: Colors.grey[800]),
       ),
     );
   }

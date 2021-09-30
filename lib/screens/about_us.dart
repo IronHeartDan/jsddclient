@@ -14,8 +14,31 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("AboutUs"),
-        ),
+            flexibleSpace: Container(
+                decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF02B3E8),
+                  Color(0xFF1A55B3),
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+              ),
+            )),
+            title: const Text("About Us"),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(
+                  "images/back.png",
+                ),
+              ),
+            )),
         body: Column(children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -28,9 +51,9 @@ class _AboutUsState extends State<AboutUs> {
                 'We at Jan Shakti Dudh Depo believe in only sourcing ethically farmed organic milk, that boosts up your family’s immunity and omega 3 fat percentage, while delivering it fresh within 24 hrs of milking. Our motto is to provide an interactive interface through which you can experience seamless delivery of our products to your doorstep while making sure that your personal info is completely safe and secure.',
                 textAlign: TextAlign.justify,
                 style: GoogleFonts.roboto(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87),
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey[800]),
               ),
             ),
           ),
@@ -109,8 +132,8 @@ class _AboutUsState extends State<AboutUs> {
   }
 
   _launchURLFacebook() async {
-    const url =
-        "https://www.linkedin.com/company/grape-studio-enterprise/mycompany/";
+    const url = "https://www.facebook.com/Grapestudioenterprise";
+
     if (await canLaunch(url)) {
       await launch(url);
     } else {

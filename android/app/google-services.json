@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:535395310879:android:9c3a1e6ecd287a790da42a",
+        "android_client_info": {
+          "package_name": "com.example.jsdd_deliveryboy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535395310879-d0oceailre946pl6ch7v6nn82fmdpip0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jsdd_deliveryboy",
+            "certificate_hash": "fff426f1f0a689a0e06c7a52efda3aedbe5afd91"
+          }
+        },
+        {
+          "client_id": "535395310879-4fjdaq42btsupaog4rnn1nst2d87jb7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBssdBAQAqYGzGOBywVQaGVvfzldNJkiCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535395310879-4fjdaq42btsupaog4rnn1nst2d87jb7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:535395310879:android:e24c5e3ca1d5c2510da42a",
         "android_client_info": {
           "package_name": "com.example.jsddclient"
@@ -19,6 +56,30 @@
           "android_info": {
             "package_name": "com.example.jsddclient",
             "certificate_hash": "98606c198644b388e9faf6d1266ae56e9ead2262"
+          }
+        },
+        {
+          "client_id": "535395310879-g87ennic49calis95018j9n8sbfivbqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jsddclient",
+            "certificate_hash": "c5f605a2ad6896f57f2392e9db5f24467b9fe3c6"
+          }
+        },
+        {
+          "client_id": "535395310879-mlgreak0548c33i2o3mnvta3bolu6l4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jsddclient",
+            "certificate_hash": "3b66b55b9b203ed16a0598039dbabbe14d8155f6"
+          }
+        },
+        {
+          "client_id": "535395310879-tfs8s12u49shddsles3r52ri74m1ml9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jsddclient",
+            "certificate_hash": "25fef7a5d5e14ca336bf31af7679aa4865410877"
           }
         },
         {
@@ -51,35 +112,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "535395310879-g4ab2jviplpvc0h921ilpsfrm3kuqbsl.apps.googleusercontent.com",
+          "client_id": "535395310879-dure05pira4o055tubp81eeih965qjrb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gse.jsdd",
-            "certificate_hash": "1994922b9b1262450ea8e5bdda0aafddc4b6b457"
-          }
-        },
-        {
-          "client_id": "535395310879-hr1jhd7nmvtv2qf9eip61qoflvrk7dhc.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.gse.jsdd",
-            "certificate_hash": "c5f605a2ad6896f57f2392e9db5f24467b9fe3c6"
-          }
-        },
-        {
-          "client_id": "535395310879-hs1i1vff4l900r4v3h1usfolu3ln2dvt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.gse.jsdd",
-            "certificate_hash": "98606c198644b388e9faf6d1266ae56e9ead2262"
-          }
-        },
-        {
-          "client_id": "535395310879-pqto5c2ab3cijqedv8odr9otrumco7v4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.gse.jsdd",
-            "certificate_hash": "cda1e1b6acb41d6ab149d218a5e377b6039ae9d4"
+            "certificate_hash": "25fef7a5d5e14ca336bf31af7679aa4865410877"
           }
         },
         {

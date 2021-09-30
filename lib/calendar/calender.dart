@@ -61,12 +61,10 @@ class _CalenderState extends State<Calender>
         .doc(FirebaseAuth.instance.currentUser?.phoneNumber?.substring(3))
         .get()
         .then((value) {
-      print(value.exists);
       if (value.exists) {
-        c_user = new C_user(
-            value["Name"], value["Phone"], value["S_id"], value["U_id"]);
+        c_user =
+            C_user(value["Name"], value["Phone"], value["S_id"], value["U_id"]);
         setState(() {});
-        print(c_user);
       }
     });
   }
@@ -76,7 +74,6 @@ class _CalenderState extends State<Calender>
     return Scaffold(
       // backgroundColor: Colors.blue[700],
       drawer: Container(
-        margin: const EdgeInsets.only(top: 20.0, bottom: 10.0),
         width: MediaQuery.of(context).size.width / 1.5,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -183,7 +180,7 @@ class _CalenderState extends State<Calender>
               ListTile(
                 onTap: () {
                   Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => FAQ()));
+                      context, MaterialPageRoute(builder: (_) => FAQ()));
                 },
                 title: Text(
                   "FAQ's",

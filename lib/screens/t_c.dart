@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,12 +16,36 @@ class _TCState extends State<TC> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("T&C"),
-        ),
-        body: SingleChildScrollView(
-            child: Column(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
+            flexibleSpace: Container(
+                decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF02B3E8),
+                  Color(0xFF1A55B3),
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+              ),
+            )),
+            title: Text("T&C"),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(
+                  "images/back.png",
+                ),
+              ),
+            )),
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: Column(
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: [
               // ignore: prefer_const_constructors
               Terms(
                   title: "Modification of Terms & Conditions of Service",
@@ -56,7 +81,7 @@ class _TCState extends State<TC> {
                   ' INFORMATION WE COLLECT',
                   textAlign: TextAlign.justify,
                   style: GoogleFonts.roboto(
-                      fontSize: 18.0, fontWeight: FontWeight.w600),
+                      fontSize: 17.0, fontWeight: FontWeight.w600),
                 ),
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
@@ -92,7 +117,7 @@ class _TCState extends State<TC> {
                   " HOW  WE  USE  AND  SHARE  INFORMATION",
                   textAlign: TextAlign.start,
                   style: GoogleFonts.roboto(
-                      fontSize: 18.0, fontWeight: FontWeight.w600),
+                      fontSize: 17.0, fontWeight: FontWeight.w600),
                 ),
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
@@ -120,9 +145,9 @@ class _TCState extends State<TC> {
               const Terms(
                   title: 'CONTACT US',
                   subtitle:
-                      'If you have any questions regarding this Privacy Policy or the practices of this app, please contact us by sending an email to teamjsdd@gmail.com' +
+                      'If you have any questions regarding this Privacy Policy or the practices of this app, please contact us by sending an email to info@grapestudioenterprise.in' +
                           ' Last Updated: This Privacy Policy was last updated on 04/09/2021')
-            ])));
+            ]))));
   }
 }
 
@@ -147,7 +172,7 @@ class _TermsState extends State<Terms> {
       title: Text(
         widget.title,
         textAlign: TextAlign.justify,
-        style: GoogleFonts.roboto(fontSize: 18.0, fontWeight: FontWeight.w600),
+        style: GoogleFonts.roboto(fontSize: 17.0, fontWeight: FontWeight.w600),
       ),
       onExpansionChanged: (value) {
         setState(() {
@@ -160,8 +185,10 @@ class _TermsState extends State<Terms> {
           child: Text(
             widget.subtitle,
             textAlign: TextAlign.justify,
-            style:
-                GoogleFonts.roboto(fontSize: 17.0, fontWeight: FontWeight.w400),
+            style: GoogleFonts.roboto(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey[800]),
           ),
         ),
       ],
